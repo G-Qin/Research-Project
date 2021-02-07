@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
 
     private bool init = false;
-    private int score = 0;
+    private int score = 0, matches = 0;
 
     void Start()
     {
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        scoreText.text = "Score: " + score;
         if (!init){
             InitializeCards();
         }
@@ -31,13 +32,16 @@ public class GameManager : MonoBehaviour
     void InitializeCards(){
         bool[] cardFaceUsed = new bool[cardFaces.Length];
         int cardFaceIndex, nextCardIndex;
+
         for (int i = 0; i < cards.Length; i++){
+            cards[i].GetComponent<CardScript>().Start();
             if (!cards[i].GetComponent<CardScript>().Initialized){ // The card has not been initialized
                 do{
                     cardFaceIndex = Random.Range(0, cardFaces.Length);
                 } while (cardFaceUsed[cardFaceIndex]); // If the card face has been used, go on to find another one
                 cards[i].GetComponent<CardScript>().CardValue = cardFaceIndex;
                 cards[i].GetComponent<CardScript>().Initialized = true;
+                cardFaceUsed[cardFaceIndex] = true; // Mark this card face as used
 
                 do{ // Find another card to form a pair
                     nextCardIndex = Random.Range(0, cards.Length);
@@ -50,7 +54,7 @@ public class GameManager : MonoBehaviour
         foreach(GameObject card in cards){
             card.GetComponent<CardScript>().SetupGraphics();
         }
-
+        matches = 0;
         init = true;
     }
 
@@ -66,21 +70,23 @@ public class GameManager : MonoBehaviour
     }
 
     void CardComparison(List<int> c){
-        CardScript.canBeFlipped = true;
+        CardScript.canBeFlipped = false;
         int x = 0;
 
         if (cards[c[0]].GetComponent<CardScript>().CardValue == cards[c[1]].GetComponent<CardScript>().CardValue){
-            x = 1;
+            x = 2;
             score ++;
-            scoreText.text = "Number of Matches" + score;
-            if (score == 0){
-                // Reset the game
-            }
+            matches ++;
+            
+            if (matches == cards.Length / 2){ 
+                // Game over, reset the game
+                init = false;
+            }            
+        }
 
-            for (int i = 0; i < c.Count; i++){
-                cards[c[i]].GetComponent<CardScript>().State = x;
-                cards[c[i]].GetComponent<CardScript>().FalseCheck();
-            }
+        for (int i = 0; i < c.Count; i++){
+            cards[c[i]].GetComponent<CardScript>().State = x;
+            cards[c[i]].GetComponent<CardScript>().FalseCheck();
         }
     }
 

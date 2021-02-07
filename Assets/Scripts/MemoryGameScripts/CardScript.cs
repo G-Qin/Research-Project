@@ -5,19 +5,19 @@ using UnityEngine.UI;
 
 public class CardScript : MonoBehaviour
 {
-    public static bool canBeFlipped = false;
+    public static bool canBeFlipped = true;
     [SerializeField]
     private int state;
     [SerializeField]
     private int cardValue;
     [SerializeField]
-    private bool initialized = false;
+    private bool initialized = true;
 
     private Sprite cardBack;
     private Sprite cardFace;
     private GameObject manager;
 
-    void Start(){
+    public void Start(){
         state = 1;
         manager = GameObject.FindGameObjectWithTag("Manager");
     }
@@ -25,7 +25,7 @@ public class CardScript : MonoBehaviour
     public void SetupGraphics(){
         cardBack = manager.GetComponent<GameManager>().GetCardBack();
         cardFace = manager.GetComponent<GameManager>().GetCardFace(cardValue);
-        FlipCard();
+        state = 0;
     }
 
     public void FlipCard(){
@@ -35,9 +35,9 @@ public class CardScript : MonoBehaviour
             state = 0;
         }
 
-        if (state == 0 && !canBeFlipped){
+        if (state == 0 && canBeFlipped){
             GetComponent<Image>().sprite = cardBack;
-        } else if (state == 1 && !canBeFlipped){
+        } else if (state == 1 && canBeFlipped){
             GetComponent<Image>().sprite = cardFace;
         }
     }
@@ -66,8 +66,8 @@ public class CardScript : MonoBehaviour
         if (state == 0){
             GetComponent<Image>().sprite = cardBack;
         } else if (state == 1){
-            GetComponent<Image>().sprite = cardFace;
-            canBeFlipped = false;
+            GetComponent<Image>().sprite = cardFace;            
         }
+        canBeFlipped = true;
     }
 }
