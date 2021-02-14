@@ -13,14 +13,14 @@ public class GameManager : MonoBehaviour
     private int score = 0, matches = 0;
 
     void Start()
-    {
+    {     
         
     }
 
     void Update()
     {
         scoreText.text = "Score: " + score;
-        if (!init){
+        if (!init) {
             InitializeCards();
         }
 
@@ -33,6 +33,10 @@ public class GameManager : MonoBehaviour
         bool[] cardFaceUsed = new bool[cardFaces.Length];
         int cardFaceIndex, nextCardIndex;
 
+        for (int i = 0; i < cards.Length; i++) {
+            cards[i].GetComponent<CardScript>().Initialized = false;
+        }
+            
         for (int i = 0; i < cards.Length; i++){
             cards[i].GetComponent<CardScript>().Start();
             if (!cards[i].GetComponent<CardScript>().Initialized){ // The card has not been initialized
@@ -58,6 +62,12 @@ public class GameManager : MonoBehaviour
         init = true;
     }
 
+    void ResetCards(){
+        for (int i = 0; i < cards.Length; i++){
+            cards[i].GetComponent<CardScript>().ResetCard();
+        }
+    }
+
     void CheckCards(){
         List<int> c = new List<int>();
         for (int i = 0; i < cards.Length; i++){
@@ -77,17 +87,19 @@ public class GameManager : MonoBehaviour
             x = 2;
             score ++;
             matches ++;
-            
-            if (matches == cards.Length / 2){ 
-                // Game over, reset the game
-                init = false;
-            }            
+                                  
         }
 
         for (int i = 0; i < c.Count; i++){
             cards[c[i]].GetComponent<CardScript>().State = x;
             cards[c[i]].GetComponent<CardScript>().FalseCheck();
         }
+
+        if (matches == cards.Length / 2){ 
+            // Game over, reset the game
+            ResetCards();
+            InitializeCards();
+        }  
     }
 
     public Sprite GetCardBack(){

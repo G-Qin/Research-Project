@@ -42,6 +42,11 @@ public class CardScript : MonoBehaviour
         }
     }
 
+    public void ResetCard(){
+        state = 0;
+        GetComponent<Image>().sprite = cardBack;
+    }
+
     public int CardValue{
         get {return cardValue;}
         set {cardValue = value;}
