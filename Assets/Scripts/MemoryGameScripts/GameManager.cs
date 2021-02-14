@@ -86,8 +86,7 @@ public class GameManager : MonoBehaviour
         if (cards[c[0]].GetComponent<CardScript>().CardValue == cards[c[1]].GetComponent<CardScript>().CardValue){
             x = 2;
             score ++;
-            matches ++;
-                                  
+            matches ++;                                  
         }
 
         for (int i = 0; i < c.Count; i++){
