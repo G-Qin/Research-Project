@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,11 +12,6 @@ public class GameManager : MonoBehaviour
 
     private bool init = false;
     private int score = 0, matches = 0;
-
-    void Start()
-    {     
-        
-    }
 
     void Update()
     {
@@ -69,6 +65,7 @@ public class GameManager : MonoBehaviour
     }
 
     void CheckCards(){
+        // Find cards that are flipped
         List<int> c = new List<int>();
         for (int i = 0; i < cards.Length; i++){
             if (cards[i].GetComponent<CardScript>().State == 1){
@@ -81,23 +78,22 @@ public class GameManager : MonoBehaviour
 
     void CardComparison(List<int> c){
         CardScript.canBeFlipped = false;
-        int x = 0;
-
+        int state = 0;
+        // If the flipped cards form a pair
         if (cards[c[0]].GetComponent<CardScript>().CardValue == cards[c[1]].GetComponent<CardScript>().CardValue){
-            x = 2;
+            state = 2;
             score ++;
             matches ++;                                  
         }
-
+        // Update card state
         for (int i = 0; i < c.Count; i++){
-            cards[c[i]].GetComponent<CardScript>().State = x;
+            cards[c[i]].GetComponent<CardScript>().State = state;
             cards[c[i]].GetComponent<CardScript>().FalseCheck();
         }
 
         if (matches == cards.Length / 2){ 
-            // Game over, reset the game
-            ResetCards();
-            InitializeCards();
+            // Game over, reset the game with a delay
+            StartCoroutine(ResetPause());
         }  
     }
 
@@ -107,5 +103,11 @@ public class GameManager : MonoBehaviour
 
     public Sprite GetCardFace(int i){
         return cardFaces[i];
+    }
+
+    IEnumerator ResetPause(){
+        yield return new WaitForSeconds(1);
+        ResetCards();
+        InitializeCards();
     }
 }

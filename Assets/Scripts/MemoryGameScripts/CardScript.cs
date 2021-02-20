@@ -12,8 +12,6 @@ public class CardScript : MonoBehaviour
     private int cardValue;
     [SerializeField]
     private bool initialized = true;
-    [SerializeField]
-    private bool isFaceUp = false;
 
     private Sprite cardBack;
     private Sprite cardFace;
@@ -31,13 +29,14 @@ public class CardScript : MonoBehaviour
     }
 
     public void FlipCard(){
+        // Cards can only be flipped by user from back to face
+        // Flipping from face to back will be done by program
         if (state == 0){
             state = 1;            
         } 
 
         if (state == 1 && canBeFlipped){
-            GetComponent<Image>().sprite = cardFace;
-            isFaceUp = true;
+            GetComponent<Image>().sprite = cardFace;            
         } else if (state == 1 && !canBeFlipped){
             state = 0;
         }
@@ -75,6 +74,5 @@ public class CardScript : MonoBehaviour
             GetComponent<Image>().sprite = cardFace;            
         }
         canBeFlipped = true;
-        isFaceUp = false;
     }
 }
