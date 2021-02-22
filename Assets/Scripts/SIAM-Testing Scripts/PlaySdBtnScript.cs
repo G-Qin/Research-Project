@@ -7,8 +7,7 @@ public class PlaySdBtnScript : MonoBehaviour
 {
     public GameObject manager;
     public Button thisButton;
-    public AudioClip whiteNoise;
-    public AudioSource source;
+    public AudioSource signal, noise;
     public float probability, noiseLength;
     float waitTime = 0f;
     bool signalExist;
@@ -21,14 +20,14 @@ public class PlaySdBtnScript : MonoBehaviour
         // Play button should be unclickable during the play
         thisButton.interactable = false;
         // Update volume from last trial, default by 1f
-        source.volume = manager.GetComponent<SIAMManager>().volume;       
+        signal.volume = manager.GetComponent<SIAMManager>().volume;       
         
         // For debug use
-        Debug.Log("Volume: " + source.volume);               
+        Debug.Log("Volume: " + signal.volume);               
         // Decide whether to play signal in this trial
         float willPlay = Random.Range(0f,1f);
         // Play noise
-        source.PlayOneShot(whiteNoise);
+        noise.Play();
         // Yes/No button will show up after the noise
         StartCoroutine(RevealYesNoButtons());
         if (willPlay < probability) {
@@ -46,7 +45,7 @@ public class PlaySdBtnScript : MonoBehaviour
         // For debug use
         Debug.Log("WT:" + waitTime);
         yield return new WaitForSeconds(waitTime);
-        source.Play();
+        signal.Play();
     }
 
     IEnumerator RevealYesNoButtons(){
