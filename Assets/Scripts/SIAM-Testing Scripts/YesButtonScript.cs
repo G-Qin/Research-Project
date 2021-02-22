@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class YesButtonScript : MonoBehaviour
 {
-    public GameObject trialText;
+    public GameObject manager;
     public GameObject thisButton;
 
     void Start(){
@@ -12,17 +12,11 @@ public class YesButtonScript : MonoBehaviour
         thisButton.SetActive(false);
     }
 
-    public void UpdateTrialNumber(){
-        trialText.
-            GetComponent<TrialTextScript>().
-                IncrementTrialNumber();
-    }
-
     public void AwakeOnSoundEnd(){
         thisButton.SetActive(true);
     }
 
-    public void HideOnClick(){
+    public void HideOnClick(){        
         thisButton.SetActive(false);
     }
 }

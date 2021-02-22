@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class NoButtonScript : MonoBehaviour
 {
-    public GameObject trialText;
+    public GameObject manager;
     public GameObject thisButton;
 
     void Start(){
         // No button is hidden at the start
         thisButton.SetActive(false);
-    }
-
-    public void UpdateTrialNumber(){
-        trialText.
-            GetComponent<TrialTextScript>().
-                IncrementTrialNumber();
     }
 
     public void AwakeOnSoundEnd(){

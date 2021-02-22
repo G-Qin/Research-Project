@@ -41,6 +41,12 @@ public class DataLoggerScript : MonoBehaviour
         }
     }
 
+    public void LogReversal(int reversalNum){
+        using (writer = new StreamWriter(path, append:true)){
+            writer.Write("Reversal #" + reversalNum + "\n");
+        }
+    }
+
     public void LogAbortedProcedure(){
         using (writer = new StreamWriter(path, append:true)){
             writer.WriteLine("Aborted Procedure");

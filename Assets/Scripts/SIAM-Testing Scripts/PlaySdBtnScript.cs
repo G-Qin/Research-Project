@@ -5,30 +5,26 @@ using UnityEngine.UI;
 
 public class PlaySdBtnScript : MonoBehaviour
 {
-    public GameObject playSoundText, yesButton, noButton, dataLogger;
+    public GameObject manager;
     public Button thisButton;
     public AudioClip whiteNoise;
     public AudioSource source;
-    public float probability, targetPerformance;
-    public float noiseLength;
-    float waitTime = 0f, volume = 1f;
+    public float probability, noiseLength;
+    float waitTime = 0f;
     bool signalExist;
     void Start()
     {
-        dataLogger.GetComponent<DataLoggerScript>().NewSIAMDataFile();
+
     }
 
     public void PlaySoundAndDisplayText(){
         // Play button should be unclickable during the play
         thisButton.interactable = false;
         // Update volume from last trial, default by 1f
-        source.volume = volume;
+        source.volume = manager.GetComponent<SIAMManager>().volume;       
+        
         // For debug use
-        Debug.Log(volume);
-        dataLogger.GetComponent<DataLoggerScript>().LogVolume(source.volume);
-        // Display text
-        playSoundText.GetComponent<PlaySoundTxtScript>().
-            AwakeOnPlaySound();
+        Debug.Log("Volume: " + source.volume);               
         // Decide whether to play signal in this trial
         float willPlay = Random.Range(0f,1f);
         // Play noise
@@ -41,13 +37,14 @@ public class PlaySdBtnScript : MonoBehaviour
         } else {
             signalExist = false;
         }
-        
+        manager.GetComponent<SIAMManager>().PlaySound(signalExist);
     }
 
     IEnumerator WaitAndPlaySignal(){
         // Randomly generate a wait time before the signal is played
         waitTime = Random.Range(0f, noiseLength);
-        Debug.Log(waitTime);
+        // For debug use
+        Debug.Log("WT:" + waitTime);
         yield return new WaitForSeconds(waitTime);
         source.Play();
     }
@@ -55,45 +52,7 @@ public class PlaySdBtnScript : MonoBehaviour
     IEnumerator RevealYesNoButtons(){
         yield return new WaitForSeconds(noiseLength);
         // Reveal the yes/no buttons and update playSoundText
-        yesButton.GetComponent<YesButtonScript>().AwakeOnSoundEnd();
-        noButton.GetComponent<NoButtonScript>().AwakeOnSoundEnd();
-        playSoundText.GetComponent<PlaySoundTxtScript>().SoundFinishText();
-    }
-
-    // Adjust the volume for next trial based on SIAM payoff matrix
-    public void UpdateVolume(bool response){
-        float dB = LinearToDecibel(volume);
-        // Hit
-        if (response && signalExist){
-            dB -= 1;
-            dataLogger.GetComponent<DataLoggerScript>().LogResponse("Hit");
-        } else if (!response && signalExist){ // Miss
-            dB += targetPerformance / (1f - targetPerformance);
-            dataLogger.GetComponent<DataLoggerScript>().LogResponse("Miss");
-        } else if (response && !signalExist){ // False alarm
-            dB += 1f/(1f-targetPerformance);
-            dataLogger.GetComponent<DataLoggerScript>().LogResponse("Flase alarm");
-        } else { // Correct rejection
-            dataLogger.GetComponent<DataLoggerScript>().LogResponse("Correct rejection");
-        }
-        volume = DecibelToLinear(dB);
-    }
-
-    private float LinearToDecibel(float linear)
-    {   // Convert linear volume to decibels
-        float dB;
-         
-        if (linear != 0) dB = 20.0f * Mathf.Log10(linear);
-        else dB = -144.0f; 
-
-        return dB;
-    }
-
-    private float DecibelToLinear(float dB)
-    {   // Convert decibels to linear volume
-        float linear = Mathf.Pow(10.0f, dB/20.0f);
-        if (linear > 1) linear = 1;
-        return linear;
+        manager.GetComponent<SIAMManager>().RevealYesNoButtons();        
     }
 
     public void Reactivate(){

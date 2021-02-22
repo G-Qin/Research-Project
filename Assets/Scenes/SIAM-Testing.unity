@@ -220,7 +220,7 @@ RectTransform:
   - {fileID: 1993643345}
   - {fileID: 279331024}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -438,6 +438,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisButton: {fileID: 279331023}
+--- !u!1 &345097680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 345097681}
+  - component: {fileID: 345097682}
+  m_Layer: 0
+  m_Name: SIAMManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &345097681
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345097680}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 50.35085, y: 98.243805, z: 64.79915}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &345097682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345097680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e622de11b3eeda64eb7e8bd110e73404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataLogger: {fileID: 878155139}
+  playSoundTxt: {fileID: 744120328}
+  trialText: {fileID: 1383211168}
+  playSoundBtn: {fileID: 1050388771}
+  noBtn: {fileID: 1073839954}
+  yesBtn: {fileID: 1201517834}
+  finishBtn: {fileID: 279331025}
+  targetPerformance: 0.5
+  trialNum: 1
+  maxTrialNum: 100
+  reversalNum: 0
+  targetReversalNum: 6
+  targetOfChange: 1
+  _volume: 1
 --- !u!1 &440719759
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,7 +868,7 @@ GameObject:
   - component: {fileID: 878155140}
   - component: {fileID: 878155141}
   m_Layer: 5
-  m_Name: DataLogger
+  m_Name: SIAMDataLogger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -986,15 +1043,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd7a61239ba01dc458d56e625d7a89a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playSoundText: {fileID: 744120328}
-  yesButton: {fileID: 1201517832}
-  noButton: {fileID: 1073839952}
-  dataLogger: {fileID: 878155139}
+  manager: {fileID: 345097680}
   thisButton: {fileID: 1050388771}
   whiteNoise: {fileID: 8300000, guid: bf47f7b25652eff4e87682d349725cf5, type: 3}
   source: {fileID: 620441889}
   probability: 0.5
-  targetPerformance: 0.5
   noiseLength: 10
 --- !u!1 &1073839952
 GameObject:
@@ -1079,8 +1132,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1073839957}
-        m_MethodName: UpdateTrialNumber
+      - m_Target: {fileID: 345097682}
+        m_MethodName: IncrementTrialNumber
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1123,7 +1176,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1050388774}
+      - m_Target: {fileID: 345097682}
         m_MethodName: UpdateVolume
         m_Mode: 6
         m_Arguments:
@@ -1194,7 +1247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28e42c48e294a541b2320d94dfa199c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trialText: {fileID: 1383211168}
+  manager: {fileID: 345097680}
   thisButton: {fileID: 1073839952}
 --- !u!1 &1127549903
 GameObject:
@@ -1358,17 +1411,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1201517837}
-        m_MethodName: UpdateTrialNumber
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1201517837}
         m_MethodName: HideOnClick
         m_Mode: 1
         m_Arguments:
@@ -1402,8 +1444,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1050388774}
-        m_MethodName: UpdateVolume
-        m_Mode: 6
+        m_MethodName: Reactivate
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1412,9 +1454,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1050388774}
-        m_MethodName: Reactivate
+      - m_Target: {fileID: 345097682}
+        m_MethodName: IncrementTrialNumber
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 345097682}
+        m_MethodName: UpdateVolume
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1472,7 +1525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6297d2f423fdd4a8fd9bc76ad2cc47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trialText: {fileID: 1383211168}
+  manager: {fileID: 345097680}
   thisButton: {fileID: 1201517832}
 --- !u!1 &1383211168
 GameObject:
@@ -1485,7 +1538,6 @@ GameObject:
   - component: {fileID: 1383211169}
   - component: {fileID: 1383211171}
   - component: {fileID: 1383211170}
-  - component: {fileID: 1383211172}
   m_Layer: 5
   m_Name: TrialText
   m_TagString: Untagged
@@ -1553,24 +1605,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383211168}
   m_CullTransparentMesh: 0
---- !u!114 &1383211172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1383211168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a948b154e5ba934186ed71333813926, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trialNum: 0
-  maxTrialNum: 15
-  trialText: {fileID: 1383211170}
-  FinishButton: {fileID: 279331023}
-  playButton: {fileID: 1050388769}
-  dataLogger: {fileID: 878155139}
 --- !u!1 &1586654583
 GameObject:
   m_ObjectHideFlags: 0
@@ -1652,7 +1686,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1704005104
 GameObject:
