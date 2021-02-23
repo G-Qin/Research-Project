@@ -11,8 +11,6 @@ public class CardScript : MonoBehaviour
     [SerializeField]
     private int cardValue;
     [SerializeField]
-    private bool initialized = true;
-
     private Sprite cardBack;
     private Sprite cardFace;
     private GameObject manager;
@@ -55,11 +53,6 @@ public class CardScript : MonoBehaviour
     public int State {
         get {return state;}
         set {state = value;}
-    }
-
-    public bool Initialized{
-        get {return initialized;}
-        set {initialized = value;}
     }
 
     public void FalseCheck(){

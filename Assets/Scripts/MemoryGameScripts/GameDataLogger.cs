@@ -53,7 +53,13 @@ public class GameDataLogger : MonoBehaviour
 
     public void LogAbortedGame(){
         using (writer = new StreamWriter(path, append:true)){
-            writer.WriteLine("Aborted Game");
+            writer.WriteLine("Aborted Game.");
+        }
+    }
+
+    public void LogReset(){
+        using (writer = new StreamWriter(path, append:true)){
+            writer.WriteLine("Reset.");
         }
     }
 }

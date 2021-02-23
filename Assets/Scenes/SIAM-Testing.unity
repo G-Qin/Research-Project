@@ -488,7 +488,7 @@ MonoBehaviour:
   noBtn: {fileID: 1073839954}
   yesBtn: {fileID: 1201517834}
   finishBtn: {fileID: 279331025}
-  targetPerformance: 0.5
+  targetPerformance: 0.75
   trialNum: 1
   maxTrialNum: 100
   reversalNum: 0

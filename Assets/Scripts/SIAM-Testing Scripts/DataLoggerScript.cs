@@ -49,7 +49,13 @@ public class DataLoggerScript : MonoBehaviour
 
     public void LogAbortedProcedure(){
         using (writer = new StreamWriter(path, append:true)){
-            writer.WriteLine("Aborted Procedure");
+            writer.WriteLine("Aborted Procedure.");
+        }
+    }
+
+    public void LogFinishedProcedure(float volume){
+        using (writer = new StreamWriter(path, append:true)){
+            writer.WriteLine("Finished Procedure, volume: " + volume);
         }
     }
 }

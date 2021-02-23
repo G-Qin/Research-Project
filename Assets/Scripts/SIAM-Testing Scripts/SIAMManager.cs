@@ -19,7 +19,6 @@ public class SIAMManager : MonoBehaviour
         trialText.GetComponent<Text>().text = "Trial #1";
     }
 
-    // Update is called once per frame
     public void PlaySound(bool exist)
     {       
         dataLogger.GetComponent<DataLoggerScript>().LogVolume(volume);
@@ -56,7 +55,7 @@ public class SIAMManager : MonoBehaviour
             Debug.Log("Reversal");
         }
         if (reversalNum == targetOfChange) {
-            targetPerformance = 0.75f;
+            targetPerformance = 0.5f;
         }
         if (reversalNum >= targetReversalNum) {
             TerminateProcedure();
@@ -84,6 +83,7 @@ public class SIAMManager : MonoBehaviour
     }
 
     private void TerminateProcedure(){
+        dataLogger.GetComponent<DataLoggerScript>().LogFinishedProcedure(volume);
         trialText.GetComponent<Text>().text = "SIAM Procedure Finished.";
         playSoundBtn.interactable = false;
         finishBtn.GetComponent<FinishBtnScript>().AwakeAtFinish();

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FinishBtnScript : MonoBehaviour
 {
@@ -15,5 +16,9 @@ public class FinishBtnScript : MonoBehaviour
     public void AwakeAtFinish()
     {
         thisButton.SetActive(true);
+    }
+
+    public void BackToMainMenu(){
+        SceneManager.LoadScene("MainMenu");
     }
 }

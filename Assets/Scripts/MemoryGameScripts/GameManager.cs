@@ -36,28 +36,31 @@ public class GameManager : MonoBehaviour
 
     void InitializeCards(){
         bool[] cardFaceUsed = new bool[cardFaces.Length];
-        int cardFaceIndex, nextCardIndex;
-
-        for (int i = 0; i < cards.Length; i++) {
-            cards[i].GetComponent<CardScript>().Initialized = false;
-        }
-            
+        int cardFaceIndex;
+        int[] tempCards = new int[cards.Length];
+        // Randomly select cards and place them uniformly in the deck
         for (int i = 0; i < cards.Length; i++){
-            cards[i].GetComponent<CardScript>().Start();
-            if (!cards[i].GetComponent<CardScript>().Initialized){ // The card has not been initialized
-                do{
+            if (i % 2 == 0) {
+                do {
                     cardFaceIndex = Random.Range(0, cardFaces.Length);
-                } while (cardFaceUsed[cardFaceIndex]); // If the card face has been used, go on to find another one
-                cards[i].GetComponent<CardScript>().CardValue = cardFaceIndex;
-                cards[i].GetComponent<CardScript>().Initialized = true;
-                cardFaceUsed[cardFaceIndex] = true; // Mark this card face as used
+                } while (cardFaceUsed[cardFaceIndex]);
+                tempCards[i] = cardFaceIndex;
+                cardFaceUsed[cardFaceIndex] = true;
+            } else {
+                tempCards[i] = tempCards[i - 1];
+            }
+        }
+        // Shuffle the deck using Fisher-Yates algorithm
+        int j, temp;
+        for (int i = 0; i < cards.Length; i++){
+            j = Random.Range(0, i+1);
+            temp = tempCards[i];
+            tempCards[i] = tempCards[j];
+            tempCards[j] = temp;
+        }
 
-                do{ // Find another card to form a pair
-                    nextCardIndex = Random.Range(0, cards.Length);
-                } while (cards[nextCardIndex].GetComponent<CardScript>().Initialized);
-                cards[nextCardIndex].GetComponent<CardScript>().CardValue = cardFaceIndex;
-                cards[nextCardIndex].GetComponent<CardScript>().Initialized = true;                
-            }                
+        for (int i = 0; i < cards.Length; i++){
+            cards[i].GetComponent<CardScript>().CardValue = tempCards[i];
         }
 
         foreach(GameObject card in cards){
@@ -122,5 +125,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         ResetCards();
         InitializeCards();
+        dataLogger.GetComponent<GameDataLogger>().LogReset();
     }
 }
