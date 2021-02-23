@@ -77,9 +77,7 @@ public class GameManager : MonoBehaviour
         // Find cards that are flipped
         List<int> c = new List<int>();
         for (int i = 0; i < cards.Length; i++){
-            if (cards[i].GetComponent<CardScript>().State == 1){
-                c.Add(i);
-            }
+            if (cards[i].GetComponent<CardScript>().State == 1) c.Add(i);            
         }
 
         if (c.Count == 2) {
@@ -91,7 +89,6 @@ public class GameManager : MonoBehaviour
     void CardComparison(List<int> c){
         CardScript.canBeFlipped = false;
         int state = 0;
-        Debug.Log(flipNum);
         // If the flipped cards form a pair
         if (cards[c[0]].GetComponent<CardScript>().CardValue == cards[c[1]].GetComponent<CardScript>().CardValue){
             state = 2;
