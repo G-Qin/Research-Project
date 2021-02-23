@@ -8,14 +8,23 @@ public class GameManager : MonoBehaviour
     public Sprite[] cardFaces;
     public Sprite cardBack;
     public GameObject[] cards;
-    public Text scoreText;
-
+    public Text scoreText, accuText;
+    public GameObject dataLogger;
     private bool init = false;
-    private int score = 0, matches = 0;
+    private int score = 0, matches = 0, flipNum = 0;
+    private float accuracy;
+
+    void Start(){
+        dataLogger.GetComponent<GameDataLogger>().NewMemGameLogFile();
+    }
 
     void Update()
     {
         scoreText.text = "Score: " + score;
+        if (flipNum == 0) accuText.text = "Accuracy: 0.00%";
+        else accuText.text = "Accuracy: " + 
+            (((float)score/(float)flipNum)*100).ToString("0.00") + "%";
+
         if (!init) {
             InitializeCards();
         }
@@ -73,17 +82,24 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (c.Count == 2) CardComparison(c);
+        if (c.Count == 2) {
+            flipNum ++;
+            CardComparison(c);            
+        }
     }
 
     void CardComparison(List<int> c){
         CardScript.canBeFlipped = false;
         int state = 0;
+        Debug.Log(flipNum);
         // If the flipped cards form a pair
         if (cards[c[0]].GetComponent<CardScript>().CardValue == cards[c[1]].GetComponent<CardScript>().CardValue){
             state = 2;
             score ++;
-            matches ++;                                  
+            matches ++;
+            dataLogger.GetComponent<GameDataLogger>().LogHit(score, flipNum);                                  
+        } else {
+            dataLogger.GetComponent<GameDataLogger>().LogMiss(score, flipNum);
         }
         // Update card state
         for (int i = 0; i < c.Count; i++){

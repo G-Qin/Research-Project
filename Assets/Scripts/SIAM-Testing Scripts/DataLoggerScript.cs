@@ -19,7 +19,7 @@ public class DataLoggerScript : MonoBehaviour
     public void NewSIAMDataFile()
     {   
         // Create a new file name using current time
-        string date = DateTime.Now.ToString("MMddyy Hmmss");
+        string date = DateTime.Now.ToString("MM-dd-yy HH-mm-ss");
         path = SIAMLogPath + date + ".txt"; 
     }
 
