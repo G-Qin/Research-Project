@@ -8,7 +8,8 @@ public class SIAMManager : MonoBehaviour
     public GameObject dataLogger, playSoundTxt, trialText;
     public Button playSoundBtn, noBtn, yesBtn, finishBtn;
     public float targetPerformance;
-    public int trialNum, maxTrialNum;  
+    public int trialNum, maxTrialNum;
+    public int stepSize;  
     public int reversalNum, targetReversalNum, targetOfChange;  
     [SerializeField]
     private float _volume = 1f;
@@ -32,17 +33,17 @@ public class SIAMManager : MonoBehaviour
         float dB = LinearToDecibel(volume);
         // Hit
         if (response && signalExist){
-            dB -= 1;
+            dB -= 1 * stepSize;
             dataLogger.GetComponent<DataLoggerScript>().LogResponse("Hit");
             // Hit will decrease the volume
             currTrend = false;
         } else if (!response && signalExist){ // Miss
-            dB += targetPerformance / (1f - targetPerformance);
+            dB += targetPerformance / (1f - targetPerformance) * stepSize;
             dataLogger.GetComponent<DataLoggerScript>().LogResponse("Miss");
         } else if (response && !signalExist){ // False alarm
-            dB += 1f/(1f-targetPerformance);
+            dB += 1f/(1f-targetPerformance) * stepSize;
             dataLogger.GetComponent<DataLoggerScript>().LogResponse("Flase alarm");
-        } else { // Correct rejection
+        } else if (!response && !signalExist){ // Correct rejection
             dataLogger.GetComponent<DataLoggerScript>().LogResponse("Correct rejection");
             // Correct rejection does not have effect on reversals
             currTrend = volIncrease;            
@@ -94,6 +95,7 @@ public class SIAMManager : MonoBehaviour
         float dB;
          
         if (linear != 0) dB = 20.0f * Mathf.Log10(linear);
+        else if (linear >= 1) dB = 0f;
         else dB = -144.0f; 
 
         return dB;

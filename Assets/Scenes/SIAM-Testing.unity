@@ -491,10 +491,11 @@ MonoBehaviour:
   targetPerformance: 0.75
   trialNum: 1
   maxTrialNum: 100
+  stepSize: 6
   reversalNum: 0
   targetReversalNum: 6
   targetOfChange: 1
-  _volume: 1
+  _volume: 0.5
 --- !u!1 &440719759
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,6 +995,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1704005108}
+        m_MethodName: Deactivate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1050388772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1143,17 +1155,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1050388774}
-        m_MethodName: Reactivate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1201517837}
         m_MethodName: HideOnClick
         m_Mode: 1
@@ -1166,7 +1167,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 744120332}
-        m_MethodName: HideAfterResponse
+        m_MethodName: PlaySoundText
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1189,6 +1190,17 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1073839957}
         m_MethodName: HideOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1050388774}
+        m_MethodName: PlaySoundAndDisplayText
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1433,7 +1445,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 744120332}
-        m_MethodName: HideAfterResponse
+        m_MethodName: PlaySoundText
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1442,17 +1454,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1050388774}
-        m_MethodName: Reactivate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 345097682}
         m_MethodName: IncrementTrialNumber
@@ -1468,6 +1469,17 @@ MonoBehaviour:
       - m_Target: {fileID: 345097682}
         m_MethodName: UpdateVolume
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1050388774}
+        m_MethodName: PlaySoundAndDisplayText
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1699,6 +1711,7 @@ GameObject:
   - component: {fileID: 1704005105}
   - component: {fileID: 1704005107}
   - component: {fileID: 1704005106}
+  - component: {fileID: 1704005108}
   m_Layer: 5
   m_Name: SIAMTestingText
   m_TagString: Untagged
@@ -1767,6 +1780,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704005104}
   m_CullTransparentMesh: 0
+--- !u!114 &1704005108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704005104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36d035e5de84f940b6dc9bc9a69b8c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisText: {fileID: 1704005104}
 --- !u!1 &1858357835
 GameObject:
   m_ObjectHideFlags: 0

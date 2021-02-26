@@ -22,8 +22,7 @@ public class PlaySoundTxtScript : MonoBehaviour
         thisText.GetComponent<Text>().text = "Sound ended.";
     }
 
-    public void HideAfterResponse(){
+    public void PlaySoundText(){
         thisText.GetComponent<Text>().text = "Playing Sound...";
-        thisText.SetActive(false);
     }
 }
