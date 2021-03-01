@@ -1059,8 +1059,10 @@ MonoBehaviour:
   thisButton: {fileID: 1050388771}
   signal: {fileID: 620441889}
   noise: {fileID: 2067397009}
+  TEN: {fileID: 8300000, guid: da23ce74b0020b542b293378507c6da9, type: 3}
   probability: 0.5
   noiseLength: 10
+  noisePlayLength: 10
 --- !u!1 &1073839952
 GameObject:
   m_ObjectHideFlags: 0
@@ -2052,7 +2054,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bf47f7b25652eff4e87682d349725cf5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: da23ce74b0020b542b293378507c6da9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

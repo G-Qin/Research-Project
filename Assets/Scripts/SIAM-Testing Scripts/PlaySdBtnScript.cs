@@ -8,12 +8,13 @@ public class PlaySdBtnScript : MonoBehaviour
     public GameObject manager;
     public Button thisButton;
     public AudioSource signal, noise;
-    public float probability, noiseLength;
+    public AudioClip TEN;
+    public float probability, noiseLength, noisePlayLength;
     float waitTime = 0f;
     bool signalExist;
     void Start()
     {
-
+        noiseLength = TEN.length;
     }
 
     public void PlaySoundAndDisplayText(){
@@ -26,10 +27,9 @@ public class PlaySdBtnScript : MonoBehaviour
         Debug.Log("Volume: " + signal.volume);               
         // Decide whether to play signal in this trial
         float willPlay = Random.Range(0f,1f);
-        // Play noise
-        noise.Play();
+        // Play noise        
         // Yes/No button will show up after the noise
-        StartCoroutine(RevealYesNoButtons());
+        StartCoroutine(PlayNoiseAndShowButtons());
         if (willPlay < probability) {
             signalExist = true;
             StartCoroutine(WaitAndPlaySignal());
@@ -41,17 +41,23 @@ public class PlaySdBtnScript : MonoBehaviour
 
     IEnumerator WaitAndPlaySignal(){
         // Randomly generate a wait time before the signal is played
-        waitTime = Random.Range(0f, noiseLength);
+        waitTime = Random.Range(0f, noisePlayLength);
         // For debug use
         Debug.Log("WT:" + waitTime);
         yield return new WaitForSeconds(waitTime);
         signal.Play();
     }
 
-    IEnumerator RevealYesNoButtons(){
-        yield return new WaitForSeconds(noiseLength);
+    IEnumerator PlayNoiseAndShowButtons(){
+        noise.time = Random.Range(0, noiseLength - noisePlayLength);        
+        // For debug use
+        Debug.Log("Noise Playback Time:" + noise.time);
+        
+        noise.Play();
+        yield return new WaitForSeconds(noisePlayLength);
         // Reveal the yes/no buttons and update playSoundText
-        manager.GetComponent<SIAMManager>().RevealYesNoButtons();        
+        noise.Stop();
+        manager.GetComponent<SIAMManager>().RevealYesNoButtons();                
     }
 
     public void Reactivate(){
