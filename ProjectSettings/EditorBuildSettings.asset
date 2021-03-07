@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/SIAM-Testing.unity
     guid: b2ea1d497a0f92043b469e4c4f38fef2
   - enabled: 1
-    path: Assets/Scenes/MemoryGame.unity
+    path: Assets/Scenes/Experiment.unity
     guid: bba86bc6e3385e14e99f667edb39bc60
   m_configObjects: {}
