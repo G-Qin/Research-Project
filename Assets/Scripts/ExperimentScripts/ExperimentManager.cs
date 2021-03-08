@@ -1,16 +1,27 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ExperimentManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public int maxTrialNum;
+    public float signalRatio;
+    public Button startBtn;
+    public GameObject cardCover;
+    [SerializeField]
+    private int currTrialNum;
+
+    void Start(){
+        startBtn.interactable = true;
+        cardCover.SetActive(true);
+    } 
+
+    public void StartExperiment(){
+        startBtn.interactable = false;
+        cardCover.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
