@@ -1969,6 +1969,8 @@ MonoBehaviour:
   signalRatio: 0
   startBtn: {fileID: 1937898488}
   cardCover: {fileID: 1062900826}
+  noise: {fileID: 2103345543}
+  signal: {fileID: 1861097064}
   currTrialNum: 0
 --- !u!1 &564525814
 GameObject:
@@ -2799,8 +2801,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 400, y: 0}
-  m_SizeDelta: {x: 1350, y: 1050}
+  m_AnchoredPosition: {x: 350, y: 0}
+  m_SizeDelta: {x: 1250, y: 1050}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1062900828
 MonoBehaviour:

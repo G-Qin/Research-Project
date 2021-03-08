@@ -481,6 +481,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e622de11b3eeda64eb7e8bd110e73404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetPerformance: 0.75
+  maxTrialNum: 100
+  stepSize: 6
+  targetReversalNum: 6
+  targetOfChange: 1
+  discardReversalNum: 2
+  incrementOfDecibel: 5
   dataLogger: {fileID: 878155139}
   playSoundTxt: {fileID: 744120328}
   trialText: {fileID: 1383211168}
@@ -488,13 +495,6 @@ MonoBehaviour:
   noBtn: {fileID: 1073839954}
   yesBtn: {fileID: 1201517834}
   finishBtn: {fileID: 279331025}
-  targetPerformance: 0.75
-  trialNum: 1
-  maxTrialNum: 100
-  stepSize: 6
-  reversalNum: 0
-  targetReversalNum: 6
-  targetOfChange: 1
   _volume: 0.5
 --- !u!1 &440719759
 GameObject:

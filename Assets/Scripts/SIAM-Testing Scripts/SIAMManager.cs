@@ -5,14 +5,17 @@ using UnityEngine.UI;
 
 public class SIAMManager : MonoBehaviour
 {
-    public GameObject dataLogger, playSoundTxt, trialText;
-    public Button playSoundBtn, noBtn, yesBtn, finishBtn;
     public float targetPerformance;
-    public int trialNum, maxTrialNum;
+    public int maxTrialNum;
     public int stepSize;  
-    public int reversalNum, targetReversalNum, targetOfChange;  
+    public int targetReversalNum, targetOfChange, discardReversalNum;
+    public int incrementOfDecibel;
+    // Above are config variables    
+    public GameObject dataLogger, playSoundTxt, trialText;
+    public Button playSoundBtn, noBtn, yesBtn, finishBtn;  
     [SerializeField]
     private float _volume = 1f;
+    private int reversalNum = 0, trialNum = 0;
     private bool signalExist = false, volIncrease = false;
     void Start()
     {
