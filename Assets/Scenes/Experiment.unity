@@ -4150,11 +4150,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 25
+    m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 45
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -4166,7 +4166,7 @@ MonoBehaviour:
     in the noise, please click the "I Heard the Signal" button as fast as possible.
 
     Note:
-    The game will refresh when all the matches are found.'
+    The game will refresh automatically when all the matches are found.'
 --- !u!222 &1430046890
 CanvasRenderer:
   m_ObjectHideFlags: 0
