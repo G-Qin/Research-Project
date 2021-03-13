@@ -14,8 +14,8 @@ public class SIAMManager : MonoBehaviour
     public GameObject dataLogger, playSoundTxt, trialText;
     public Button playSoundBtn, noBtn, yesBtn, finishBtn;  
     [SerializeField]
-    private float _volume = 1f;
-    private int reversalNum = 0, trialNum = 0;
+    private float _volume = 1f, totalVol = 0f;
+    private int reversalNum = 0, trialNum = 0, trialNumAvg = 0;
     private bool signalExist = false, volIncrease = false;
     void Start()
     {
@@ -65,6 +65,11 @@ public class SIAMManager : MonoBehaviour
             TerminateProcedure();
         }
         volume = DecibelToLinear(dB);
+        // Update and calculate average volume
+        if (reversalNum >= discardReversalNum){
+            totalVol += volume;
+            trialNumAvg ++;
+        }
     }
 
     public void RevealYesNoButtons(){
@@ -87,10 +92,11 @@ public class SIAMManager : MonoBehaviour
     }
 
     private void TerminateProcedure(){
-        dataLogger.GetComponent<DataLoggerScript>().LogFinishedProcedure(volume);
+        float avgVol = totalVol / trialNumAvg;
+        dataLogger.GetComponent<DataLoggerScript>().LogFinishedProcedure(avgVol);
         trialText.GetComponent<Text>().text = "SIAM Procedure Finished.";
-        playSoundBtn.interactable = false;
         finishBtn.GetComponent<FinishBtnScript>().AwakeAtFinish();
+        PlayerPrefs.SetFloat("SignalVolume", avgVol);
     }
 
     private static float LinearToDecibel(float linear)

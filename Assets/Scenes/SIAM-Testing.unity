@@ -496,6 +496,7 @@ MonoBehaviour:
   yesBtn: {fileID: 1201517834}
   finishBtn: {fileID: 279331025}
   _volume: 0.5
+  totalVol: 0
 --- !u!1 &440719759
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,7 +1062,7 @@ MonoBehaviour:
   noise: {fileID: 2067397009}
   TEN: {fileID: 8300000, guid: da23ce74b0020b542b293378507c6da9, type: 3}
   probability: 0.5
-  noiseLength: 10
+  noiseLength: 0
   noisePlayLength: 10
 --- !u!1 &1073839952
 GameObject:
