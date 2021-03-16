@@ -1967,9 +1967,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTrialNum: 20
   signalRatio: 0.5
-  responseWindow: 1
   trialInterval: 1.5
   noisePlayLength: 10
+  feedbackTime: 0.5
+  responseWindow: 0.6
   startBtn: {fileID: 1937898488}
   signalBtn: {fileID: 710140506}
   cardCover: {fileID: 1062900826}
