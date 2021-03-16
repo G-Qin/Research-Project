@@ -12,6 +12,7 @@ public class ExperimentManager : MonoBehaviour
     public GameObject cardCover;
     public AudioSource noise, signal;
     public Image feedbackSquare;
+    public Text trialNumText;
     [SerializeField]
     private int currTrialNum;
     [SerializeField]
@@ -39,6 +40,7 @@ public class ExperimentManager : MonoBehaviour
     IEnumerator Experiment()
     {        
         for (currTrialNum = 1; currTrialNum <= maxTrialNum; currTrialNum++){
+            trialNumText.text = "Trial #: " + currTrialNum;
             signalBtn.interactable = true;
             // Determine and play signal
             float willPlay = Random.Range(0f,1f);
@@ -63,5 +65,9 @@ public class ExperimentManager : MonoBehaviour
         float waitTime = Random.Range(0f, noisePlayLength);
         yield return new WaitForSeconds(waitTime);
         signal.Play();
+    }
+
+    public void SignalResponse(){
+        Debug.Log("response");
     }
 }
