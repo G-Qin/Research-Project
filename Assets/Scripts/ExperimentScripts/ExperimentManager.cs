@@ -10,13 +10,14 @@ public class ExperimentManager : MonoBehaviour
     public float signalRatio, trialInterval, noisePlayLength;
     public float feedbackTime, responseWindow;
     // Above are config variables
+    public GameObject dataLogger;
     public Button startBtn, signalBtn;
     public GameObject cardCover;
     public AudioSource noise, signal;
     public Image feedbackSquare;
     public Text trialNumText;
     [SerializeField]
-    private int currTrialNum;
+    private int currTrialNum, response;
     [SerializeField]
     private float volume, noiseLength;
     private bool signalExist = false, answered = false;
@@ -26,15 +27,19 @@ public class ExperimentManager : MonoBehaviour
     void Start(){
         noiseLength = noise.clip.length;
         startBtn.interactable = true;
+        // Hide the game part for now
         cardCover.SetActive(true);
+        // Load the volume from SIAM, otherwise it will be 0.5 by default
         volume = PlayerPrefs.GetFloat("SignalVolume");
         signal.volume = volume;
+        // Signal button cannot be accessed until start
         signalBtn.interactable = false;
         // For debug use
         UnityEngine.Debug.Log(volume);
     } 
 
     public void StartExperiment(){
+        dataLogger.GetComponent<ExperimentDataLogger>().NewExperimentLogFile();
         signalBtn.interactable = true;
         startBtn.interactable = false;
         cardCover.SetActive(false);
@@ -42,8 +47,9 @@ public class ExperimentManager : MonoBehaviour
     }
 
     IEnumerator Experiment()
-    {        
+    {               
         for (currTrialNum = 1; currTrialNum <= maxTrialNum; currTrialNum++){
+            response = 0;
             answered = false;
             trialNumText.text = "Trial #: " + currTrialNum;
             signalBtn.interactable = true;
@@ -69,11 +75,21 @@ public class ExperimentManager : MonoBehaviour
             yield return new WaitForSeconds(noisePlayLength); 
             noise.Stop();
             // Log a miss or correct rejection
-            if (!answered && signalExist) UnityEngine.Debug.Log("Miss");
-            if (!answered && !signalExist) UnityEngine.Debug.Log("Correct Rejection");
+            if (!answered && signalExist) {
+                UnityEngine.Debug.Log("Miss");
+                response = 2;
+            }
+            if (!answered && !signalExist) {
+                UnityEngine.Debug.Log("Correct Rejection");
+                response = 4;
+            }
             // Signal button cannot be pressed during the pause
             signalBtn.interactable = false;
-            yield return new WaitForSeconds(trialInterval);   
+            yield return new WaitForSeconds(trialInterval);
+            // Log the outcome of the trial
+            dataLogger.GetComponent<ExperimentDataLogger>().LogTrialNumber(currTrialNum);
+            dataLogger.GetComponent<ExperimentDataLogger>().LogSignal(signalExist);
+            dataLogger.GetComponent<ExperimentDataLogger>().LogResponse(response);   
         }
     }
 
@@ -83,16 +99,22 @@ public class ExperimentManager : MonoBehaviour
     }
 
     public void SignalResponse(){
-        if (!signalExist && !answered) UnityEngine.Debug.Log("False Alarm");
+        if (!signalExist && !answered) {
+            response = 3;
+            UnityEngine.Debug.Log("False Alarm");
+            StartCoroutine(ChangeFeedbackColor(false));
+        }
         if (signalExist && !answered){
             stopwatch.Stop();
             float time = (float)stopwatch.ElapsedMilliseconds;
             if (time >= windowStartTime && time <= windowEndTime){
                 // Response within the window
+                response = 1;
                 UnityEngine.Debug.Log("Hit");
                 StartCoroutine(ChangeFeedbackColor(true));
             } else {
                 // Response outside the window
+                response = 3;
                 UnityEngine.Debug.Log("False Alarm");
                 StartCoroutine(ChangeFeedbackColor(false));
             }
