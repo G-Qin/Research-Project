@@ -57,7 +57,7 @@ public class ExperimentManager : MonoBehaviour
             float willPlay = Random.Range(0f,1f);
             if (willPlay < signalRatio) {
                 signalExist = true;
-                signalWaitTime = Random.Range(0f, noisePlayLength);
+                signalWaitTime = Random.Range(0f, noisePlayLength - responseWindow);
                 UnityEngine.Debug.Log(signalWaitTime);
                 // Compute the response window in miliseconds
                 windowStartTime = signalWaitTime * 1000f;
