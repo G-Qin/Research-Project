@@ -12,7 +12,7 @@ public class ExperimentManager : MonoBehaviour
     // Above are config variables
     public GameObject dataLogger;
     public Button startBtn, signalBtn;
-    public GameObject cardCover;
+    public GameObject cardCover, introText;
     public AudioSource noise, signal;
     public Image feedbackSquare;
     public Text trialNumText;
@@ -40,8 +40,13 @@ public class ExperimentManager : MonoBehaviour
 
     public void StartExperiment(){
         dataLogger.GetComponent<ExperimentDataLogger>().NewExperimentLogFile();
+        // Log the volume of the experiment at the beginning
+        float dB = LinearToDecibel(volume);
+        dataLogger.GetComponent<ExperimentDataLogger>().LogVolume(dB);
+        // Enable response button and disable the start button
         signalBtn.interactable = true;
         startBtn.interactable = false;
+        // Reveal the memory game and start the experiment
         cardCover.SetActive(false);
         StartCoroutine(Experiment());
     }
@@ -91,6 +96,9 @@ public class ExperimentManager : MonoBehaviour
             dataLogger.GetComponent<ExperimentDataLogger>().LogSignal(signalExist);
             dataLogger.GetComponent<ExperimentDataLogger>().LogResponse(response);   
         }
+        cardCover.SetActive(true);
+        introText.SetActive(false);
+        trialNumText.text = "Experiment finished.";
     }
 
     IEnumerator PlaySignal(){
@@ -130,5 +138,16 @@ public class ExperimentManager : MonoBehaviour
         yield return new WaitForSeconds(feedbackTime);
         // Black
         feedbackSquare.color = new Color32(0, 0, 0, 255);
+    }
+
+    private static float LinearToDecibel(float linear)
+    {   // Convert linear volume to decibels
+        float dB;
+         
+        if (linear != 0) dB = 20.0f * Mathf.Log10(linear);
+        else if (linear >= 1) dB = 0f;
+        else dB = -144.0f; 
+
+        return dB;
     }
 }

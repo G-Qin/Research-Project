@@ -1965,7 +1965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dda8fa7bf41b2644817ae0477687d68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTrialNum: 20
+  maxTrialNum: 1
   signalRatio: 0.5
   trialInterval: 1.5
   noisePlayLength: 10
@@ -1975,6 +1975,7 @@ MonoBehaviour:
   startBtn: {fileID: 1937898488}
   signalBtn: {fileID: 710140506}
   cardCover: {fileID: 1062900826}
+  introText: {fileID: 1430046887}
   noise: {fileID: 2103345543}
   signal: {fileID: 1861097064}
   feedbackSquare: {fileID: 1436641100}
@@ -2613,7 +2614,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -600, y: -100}
-  m_SizeDelta: {x: 300, y: 75}
+  m_SizeDelta: {x: 550, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &843279034
 MonoBehaviour:
