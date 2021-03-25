@@ -1965,7 +1965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dda8fa7bf41b2644817ae0477687d68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTrialNum: 1
+  maxTrialNum: 25
   signalRatio: 0.5
   trialInterval: 1.5
   noisePlayLength: 10
