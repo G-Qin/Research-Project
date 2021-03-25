@@ -92,6 +92,12 @@ public class SIAMManager : MonoBehaviour
     }
 
     private void TerminateProcedure(){
+        // Disable the buttons on the interface
+        yesBtn.interactable = false;
+        noBtn.interactable = false;
+        playSoundTxt.GetComponent<Text>().text = " ";
+        playSoundBtn.GetComponent<PlaySdBtnScript>().StopPlaying();
+        // Calculate the average volume
         float avgVol = totalVol / trialNumAvg;
         dataLogger.GetComponent<DataLoggerScript>().LogFinishedProcedure(avgVol);
         trialText.GetComponent<Text>().text = "SIAM Procedure Finished.";

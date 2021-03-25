@@ -60,7 +60,8 @@ public class PlaySdBtnScript : MonoBehaviour
         manager.GetComponent<SIAMManager>().RevealYesNoButtons();                
     }
 
-    public void Reactivate(){
-        thisButton.interactable = true;
+    public void StopPlaying(){
+        noise.mute = true;
+        signal.mute = true;
     }
 }

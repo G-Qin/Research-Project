@@ -20,30 +20,33 @@ public class DataLoggerScript : MonoBehaviour
     {   
         // Create a new file name using current time
         string date = DateTime.Now.ToString("MM-dd-yy HH-mm-ss");
-        path = SIAMLogPath + date + ".txt"; 
+        path = SIAMLogPath + date + ".csv"; 
+        using (writer = new StreamWriter(path, append:true)){
+            writer.WriteLine("Volume,Trial #,Response");
+        }
     }
 
     public void LogTrialNumber(int trialNum){
         using (writer = new StreamWriter(path, append:true)){
-            writer.Write("Trial #" + trialNum.ToString() + "  ");
+            writer.Write(trialNum.ToString() + ",");
         }
     }
 
     public void LogVolume(float volume){
         using (writer = new StreamWriter(path, append:true)){
-            writer.Write("Volume: " + volume.ToString() + "  ");
+            writer.Write(volume.ToString() + ",");
         }
     }
 
     public void LogResponse(string response){
         using (writer = new StreamWriter(path, append:true)){
-            writer.Write(response + "\n");
+            writer.WriteLine(response);
         }
     }
 
     public void LogReversal(int reversalNum){
         using (writer = new StreamWriter(path, append:true)){
-            writer.Write("Reversal #" + reversalNum + "\n");
+            writer.WriteLine("Reversal #" + reversalNum);
         }
     }
 

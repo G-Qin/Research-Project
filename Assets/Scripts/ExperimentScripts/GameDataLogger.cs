@@ -23,15 +23,18 @@ public class GameDataLogger : MonoBehaviour
     public void NewMemGameLogFile(){
         // Create a new file name using current time
         string date = DateTime.Now.ToString("MM-dd-yy HH-mm-ss");
-        path = MemGameLogPath + date + ".txt"; 
+        path = MemGameLogPath + date + ".csv"; 
+        using (writer = new StreamWriter(path, append:true)){
+            writer.WriteLine("Timestamp,Result,Score,Accuracy");
+        }
     }
 
     public void LogHit(int score, int flipNum){
         accuracy = (float)score / (float)flipNum;
         LogTime();
         using (writer = new StreamWriter(path, append:true)){
-            writer.WriteLine("Hit , Score: " + score + 
-                ", Accuracy: " + (accuracy * 100).ToString("0.00"));
+            writer.WriteLine("Hit," + score + 
+                "," + (accuracy * 100).ToString("0.00"));
         }
     }
 
@@ -40,14 +43,14 @@ public class GameDataLogger : MonoBehaviour
         
         LogTime();
         using (writer = new StreamWriter(path, append:true)){
-            writer.WriteLine("Miss, Score: " + score + 
-                ", Accuracy: " + (accuracy * 100).ToString("0.00"));
+            writer.WriteLine("Miss," + score + 
+                "," + (accuracy * 100).ToString("0.00"));
         }
     }
 
     private void LogTime(){
         using (writer = new StreamWriter(path, append:true)){
-            writer.Write(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss  "));
+            writer.Write(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + ",");
         }
     }
 
