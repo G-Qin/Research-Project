@@ -38,9 +38,12 @@ public class DataLoggerScript : MonoBehaviour
         }
     }
 
-    public void LogResponse(string response){
+    public void LogResponse(int response){
         using (writer = new StreamWriter(path, append:true)){
-            writer.WriteLine(response);
+            if (response == 1) writer.WriteLine("Hit");
+            else if (response == 2) writer.WriteLine("Miss");
+            else if (response == 3) writer.WriteLine("False Alarm");
+            else if (response == 4) writer.WriteLine("Correct rejection");
         }
     }
 
