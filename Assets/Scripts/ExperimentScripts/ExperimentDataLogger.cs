@@ -28,7 +28,7 @@ public class ExperimentDataLogger : MonoBehaviour
 
     public void LogVolume(float volume){
         using (writer = new StreamWriter(path, append:true)){
-            writer.WriteLine("Voume: " + volume);
+            writer.WriteLine("Level: " + volume);
         }
     }
     public void LogTrialNumber(int trialNum){

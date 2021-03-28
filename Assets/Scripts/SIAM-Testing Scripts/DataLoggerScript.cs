@@ -22,7 +22,7 @@ public class DataLoggerScript : MonoBehaviour
         string date = DateTime.Now.ToString("MM-dd-yy HH-mm-ss");
         path = SIAMLogPath + date + ".csv"; 
         using (writer = new StreamWriter(path, append:true)){
-            writer.WriteLine("Volume,Trial #,Response");
+            writer.WriteLine("Level,Trial #,Response");
         }
     }
 
@@ -61,7 +61,7 @@ public class DataLoggerScript : MonoBehaviour
 
     public void LogFinishedProcedure(float volume){
         using (writer = new StreamWriter(path, append:true)){
-            writer.WriteLine("Finished Procedure, volume: " + volume);
+            writer.WriteLine("Finished Procedure, average level: " + volume);
         }
     }
 }

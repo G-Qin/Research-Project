@@ -1534,7 +1534,6 @@ GameObject:
   - component: {fileID: 1704005105}
   - component: {fileID: 1704005107}
   - component: {fileID: 1704005106}
-  - component: {fileID: 1704005108}
   m_Layer: 5
   m_Name: SIAMTestingText
   m_TagString: Untagged
@@ -1603,19 +1602,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704005104}
   m_CullTransparentMesh: 0
---- !u!114 &1704005108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704005104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e36d035e5de84f940b6dc9bc9a69b8c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisText: {fileID: 1704005104}
 --- !u!1 &1858357835
 GameObject:
   m_ObjectHideFlags: 0
