@@ -144,6 +144,7 @@ public class NewSIAMManager : MonoBehaviour
         trialNumText.text = "SIAM Procedure Finished.";
         finishBtn.interactable = true;
         PlayerPrefs.SetFloat("SignalVolume", avgVol);
+        PlayerPrefs.SetInt("SIAMDone", 1);
     }
     public void BackToMainMenu()
     {
